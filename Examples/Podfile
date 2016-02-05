@@ -4,5 +4,6 @@ workspace 'Messenger.xcworkspace'
 platform :ios, '7.0'
 
 pod 'SlackTextViewController', :path => '../SlackTextViewController.podspec'
+pod 'DZNSegmentedControl', :path => '/Users/iromero/Desktop/DZN/OSS/DZNSegmentedControl/DZNSegmentedControl.podspec'
 
 pod 'LoremIpsum', '~> 1.0'
