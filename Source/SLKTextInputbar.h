@@ -66,6 +66,9 @@ typedef NS_ENUM(NSUInteger, SLKCounterPosition) {
 /** The most appropriate height calculated based on the amount of lines of text and other factors. */
 @property (nonatomic, readonly) CGFloat appropriateHeight;
 
+/** */
+@property (nonatomic, readonly) CGFloat bottomMargin;
+
 
 #pragma mark - Initialization
 ///------------------------------------------------
