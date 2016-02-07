@@ -239,6 +239,10 @@
 
 - (void)didLongPressCell:(UIGestureRecognizer *)gesture
 {
+    if (gesture.state != UIGestureRecognizerStateBegan || self.isAutoCompleting) {
+        return;
+    }
+    
 #ifdef __IPHONE_8_0
     if (SLK_IS_IOS8_AND_HIGHER && [UIAlertController class]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
