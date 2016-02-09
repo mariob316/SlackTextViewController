@@ -62,6 +62,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 // Optional classes to be used instead of the default ones.
 @property (nonatomic, strong) Class textViewClass;
+@property (nonatomic, strong) Class textInputbarClass;
 @property (nonatomic, strong) Class typingIndicatorViewClass;
 
 @end
@@ -309,7 +310,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (SLKTextInputbar *)textInputbar
 {
     if (!_textInputbar) {
-        _textInputbar = [[SLKTextInputbar alloc] initWithTextViewClass:self.textViewClass];
+        
+        Class class = self.textInputbarClass ? : [SLKTextInputbar class];
+
+        _textInputbar = [[class alloc] initWithTextViewClass:self.textViewClass];
         _textInputbar.translatesAutoresizingMaskIntoConstraints = NO;
         
         [_textInputbar.leftButton addTarget:self action:@selector(didPressLeftButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -1861,6 +1865,16 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     
     NSAssert([aClass isSubclassOfClass:[SLKTextView class]], @"The registered class is invalid, it must be a subclass of SLKTextView.");
     self.textViewClass = aClass;
+}
+
+- (void)registerClassForTextInputbar:(Class)aClass
+{
+    if (aClass == nil) {
+        return;
+    }
+    
+    NSAssert([aClass isSubclassOfClass:[SLKTextInputbar class]], @"The registered class is invalid, it must be a subclass of SLKTextInputbar.");
+    self.textInputbarClass = aClass;
 }
 
 - (void)registerClassForTypingIndicatorView:(Class)aClass
