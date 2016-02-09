@@ -1451,6 +1451,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.movingKeyboard = NO;
 }
 
+- (void)slk_didChangeKeyboardFrame:(NSNotification *)notification
+{
+    _keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+}
+
 - (void)slk_didPostSLKKeyboardNotification:(NSNotification *)notification
 {
     if (![notification.object isEqual:self.textView]) {
@@ -2220,7 +2225,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [notificationCenter addObserver:self selector:@selector(slk_willShowOrHideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(slk_didShowOrHideKeyboard:) name:UIKeyboardDidShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(slk_didShowOrHideKeyboard:) name:UIKeyboardDidHideNotification object:nil];
-    
+    [notificationCenter addObserver:self selector:@selector(slk_didChangeKeyboardFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
+
 #if SLK_KEYBOARD_NOTIFICATION_DEBUG
     [notificationCenter addObserver:self selector:@selector(slk_didPostSLKKeyboardNotification:) name:SLKKeyboardWillShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(slk_didPostSLKKeyboardNotification:) name:SLKKeyboardDidShowNotification object:nil];
@@ -2250,6 +2256,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [notificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [notificationCenter removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [notificationCenter removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [notificationCenter removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
     
 #if SLK_KEYBOARD_NOTIFICATION_DEBUG
     [notificationCenter removeObserver:self name:SLKKeyboardWillShowNotification object:nil];

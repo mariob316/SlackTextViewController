@@ -117,11 +117,18 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
  */
 @property (nonatomic, assign, getter = isInverted) BOOL inverted;
 
-/** YES if the view controller is presented inside of a popover controller. If YES, the keyboard won't move the text input bar and tapping on the tableView/collectionView will not cause the keyboard to be dismissed. This property is compatible only with iPad. */
+/**
+ YES if the view controller is presented inside of a popover controller.
+ If YES, the keyboard won't move the text input bar and tapping on the tableView/collectionView will not cause the keyboard to be dismissed.
+ This property is compatible only with iPad.
+ */
 @property (nonatomic, assign, getter = isPresentedInPopover) BOOL presentedInPopover;
 
 /** The current keyboard status (will/did hide, will/did show) */
 @property (nonatomic, readonly) SLKKeyboardStatus keyboardStatus;
+
+/** The keyboard's frame in screen coordinates, useful to additional layout needs. */
+@property (nonatomic, readonly) CGRect keyboardFrame;
 
 /** Convenience accessors (accessed through the text input bar) */
 @property (nonatomic, readonly) SLKTextView *textView;
