@@ -8,6 +8,29 @@
 
 #import "SLKTextView.h"
 
+typedef NS_ENUM(NSUInteger, InputType) {
+    InputTypeDisabled = -1,
+    InputTypeKeyboard = 0,
+    InputTypeApps,
+    InputTypeCalls,
+    InputTypeEmoji,
+    InputTypeMedia
+};
+
+@protocol MessageTextViewDelegate;
+
 @interface MessageTextView : SLKTextView
+
+@property (nonatomic, weak) id<MessageTextViewDelegate,SLKTextViewDelegate>delegate;
+@property (nonatomic) InputType inputType;
+
++ (UIColor *)tintColorForInputType:(InputType)inputType;
+
+@end
+
+
+@protocol MessageTextViewDelegate <SLKTextViewDelegate>
+
+- (UIInputViewController *)inputViewControllerForType:(InputType)type;
 
 @end

@@ -116,15 +116,15 @@ typedef NS_ENUM(NSUInteger, SLKCounterPosition) {
 - (BOOL)canEditText:(NSString *)text;
 
 /**
- Begins editing the text, by updating the 'editing' flag and the view constraints.
+ Begins editing the text, by updating the 'editing' flag and the layout.
  */
 - (void)beginTextEditing;
 
 /**
- End editing the text, by updating the 'editing' flag and the view constraints.
+ End editing the text, by updating the 'editing' flag and the layout.
  */
-- (void)endTextEdition;
-
+- (void)endTextEditing;
+- (void)endTextEdition DEPRECATED_MSG_ATTRIBUTE("Use -endTextEditing instead");
 
 #pragma mark - Text Counting
 ///------------------------------------------------

@@ -778,7 +778,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         return;
     }
     
-    [_textInputbar endTextEdition];
+    [_textInputbar endTextEditing];
     
     // Clears the text and but not the undo manager
     [self.textView slk_clearText:NO];
@@ -790,7 +790,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         return;
     }
     
-    [_textInputbar endTextEdition];
+    [_textInputbar endTextEditing];
     
     // Clears the text and but not the undo manager
     [self.textView slk_clearText:NO];
@@ -1453,6 +1453,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     
     // Very important to invalidate this flag after the keyboard is dismissed or presented, to start with a clean state next time.
     self.movingKeyboard = NO;
+}
+
+- (void)slk_willChangeKeyboardFrame:(NSNotification *)notification
+{
+    _keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 }
 
 - (void)slk_didChangeKeyboardFrame:(NSNotification *)notification
@@ -2240,6 +2245,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [notificationCenter addObserver:self selector:@selector(slk_didShowOrHideKeyboard:) name:UIKeyboardDidShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(slk_didShowOrHideKeyboard:) name:UIKeyboardDidHideNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(slk_didChangeKeyboardFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(slk_willChangeKeyboardFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(slk_didChangeKeyboardFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
 
 #if SLK_KEYBOARD_NOTIFICATION_DEBUG
     [notificationCenter addObserver:self selector:@selector(slk_didPostSLKKeyboardNotification:) name:SLKKeyboardWillShowNotification object:nil];
@@ -2270,8 +2277,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [notificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [notificationCenter removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [notificationCenter removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [notificationCenter removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     [notificationCenter removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
-    
+
 #if SLK_KEYBOARD_NOTIFICATION_DEBUG
     [notificationCenter removeObserver:self name:SLKKeyboardWillShowNotification object:nil];
     [notificationCenter removeObserver:self name:SLKKeyboardDidShowNotification object:nil];

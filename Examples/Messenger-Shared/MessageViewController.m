@@ -8,12 +8,16 @@
 
 #import "MessageViewController.h"
 #import "MessageTableViewCell.h"
+#import "MessageTextInputbar.h"
 #import "MessageTextView.h"
 #import "TypingIndicatorView.h"
+#import "InputViewController.h"
 #import "Message.h"
 
 #import <LoremIpsum/LoremIpsum.h>
 
+#define DEBUG_CUSTOM_TEXT_INPUTBAR 1
+#define DEBUG_CUSTOM_TEXT_VIEW 1
 #define DEBUG_CUSTOM_TYPING_INDICATOR 0
 
 @interface MessageViewController ()
@@ -64,10 +68,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputbarDidMove:) name:SLKTextInputbarDidMoveNotification object:nil];
     
     // Register a SLKTextView subclass, if you need any special appearance and/or behavior customisation.
+#if DEBUG_CUSTOM_TEXT_VIEW
     [self registerClassForTextView:[MessageTextView class]];
+#endif
     
-#if DEBUG_CUSTOM_TYPING_INDICATOR
+    // Register a SLKTextInputbar subclass, if you need any special appearance and/or behavior customisation.
+#if DEBUG_CUSTOM_TEXT_INPUTBAR
+    [self registerClassForTextInputbar:[MessageTextInputbar class]];
+#endif
+    
     // Register a UIView subclass, conforming to SLKTypingIndicatorProtocol, to use a custom typing indicator view.
+#if DEBUG_CUSTOM_TYPING_INDICATOR
     [self registerClassForTypingIndicatorView:[TypingIndicatorView class]];
 #endif
 }
@@ -90,8 +101,10 @@
     self.shouldScrollToBottomAfterKeyboardShows = NO;
     self.inverted = YES;
     
+#if !DEBUG_CUSTOM_TEXT_INPUTBAR
     [self.leftButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor grayColor]];
+#endif
     
     [self.rightButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     
@@ -376,6 +389,18 @@
 - (void)didChangeKeyboardStatus:(SLKKeyboardStatus)status
 {
     // Notifies the view controller that the keyboard changed status.
+
+#if DEBUG_CUSTOM_TEXT_INPUTBAR
+    MessageTextInputbar *textInputBar = (MessageTextInputbar *)self.textInputbar;
+    DZNSegmentedControl *segmentedControl = textInputBar.segmentedControl;
+    
+    if (status == SLKKeyboardStatusWillHide) {
+        segmentedControl.selectedSegmentIndex = InputTypeDisabled;
+    }
+    else if (status == SLKKeyboardStatusWillShow && segmentedControl.selectedSegmentIndex == InputTypeDisabled) {
+        segmentedControl.selectedSegmentIndex = InputTypeKeyboard;
+    }
+#endif
 }
 
 - (void)textWillUpdate
@@ -687,22 +712,23 @@
 }
 
 
-#pragma mark - UITextViewDelegate Methods
+#pragma mark - MessageTextViewDelegate Methods
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+- (UIInputViewController *)inputViewControllerForType:(InputType)type
 {
-    return YES;
+    if (type == InputTypeKeyboard) {
+        return nil;
+    }
+    
+    InputViewController *inputVC = [[InputViewController alloc] init];
+    inputVC.view.frame = self.keyboardFrame;
+    inputVC.view.backgroundColor = [MessageTextView tintColorForInputType:type];
+
+    return inputVC;
 }
 
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView
-{
-    return YES;
-}
 
-- (BOOL)textView:(SLKTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    return [super textView:textView shouldChangeTextInRange:range replacementText:text];
-}
+#pragma mark - SLKTextViewDelegate Methods
 
 - (BOOL)textView:(SLKTextView *)textView shouldOfferFormattingForSymbol:(NSString *)symbol
 {
@@ -735,6 +761,24 @@
     }
     
     return [super textView:textView shouldInsertSuffixForFormattingWithSymbol:symbol prefixRange:prefixRange];
+}
+
+
+#pragma mark - UITextViewDelegate Methods
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    return YES;
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    return YES;
+}
+
+- (BOOL)textView:(SLKTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    return [super textView:textView shouldChangeTextInRange:range replacementText:text];
 }
 
 

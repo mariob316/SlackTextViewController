@@ -48,8 +48,14 @@
 		71BE102F1A72F42F0083EE32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F86BF8E19F01234007A3D4A /* Images.xcassets */; };
 		71BE10301A76C4890083EE32 /* MessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C6BA41A6E208E006E3FAB /* MessageTextView.m */; };
 		8C6D809F3C95C912F87F0D17 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFA9095EABC480682E6396C /* libPods.a */; };
+		F51F86FD1C699B1400E3E614 /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51F86FC1C699B1400E3E614 /* InputViewController.m */; };
+		F51F86FF1C69B7EE00E3E614 /* slack-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F86FE1C69B7EE00E3E614 /* slack-icons.ttf */; };
+		F51F87001C69B7EE00E3E614 /* slack-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F86FE1C69B7EE00E3E614 /* slack-icons.ttf */; };
+		F51F87011C69B7EE00E3E614 /* slack-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F86FE1C69B7EE00E3E614 /* slack-icons.ttf */; };
+		F51F87021C69B7EE00E3E614 /* slack-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F51F86FE1C69B7EE00E3E614 /* slack-icons.ttf */; };
 		F556AFAE1BA7B41F009898BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F556AFAD1BA7B41F009898BD /* QuartzCore.framework */; };
 		F5DE01401B9679C4005E9082 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F86BF7619F011D0007A3D4A /* LaunchScreen.xib */; };
+		F5FA30531C6402250041861B /* MessageTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FA30521C6402250041861B /* MessageTextInputbar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,7 +108,16 @@
 		C905E5DB18A83F74BD092CDD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DDFA9095EABC480682E6396C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E76FE7634642D0C745F673A5 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F51F86FB1C699B1400E3E614 /* InputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
+		F51F86FC1C699B1400E3E614 /* InputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
+		F51F86FE1C69B7EE00E3E614 /* slack-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slack-icons.ttf"; sourceTree = "<group>"; };
 		F556AFAD1BA7B41F009898BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F5FA30511C6402250041861B /* MessageTextInputbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextInputbar.h; sourceTree = "<group>"; };
+		F5FA30521C6402250041861B /* MessageTextInputbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextInputbar.m; sourceTree = "<group>"; };
+		F5FA30551C6459A10041861B /* ___FILEBASENAME___.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___FILEBASENAME___.h"; sourceTree = "<group>"; };
+		F5FA30561C6459A10041861B /* ___FILEBASENAME___.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "___FILEBASENAME___.m"; sourceTree = "<group>"; };
+		F5FA30581C6459A10041861B /* ___FILEBASENAME___.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___FILEBASENAME___.h"; sourceTree = "<group>"; };
+		F5FA30591C6459A10041861B /* ___FILEBASENAME___.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "___FILEBASENAME___.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,11 +305,16 @@
 				4F86BF9019F01234007A3D4A /* MessageTableViewCell.m */,
 				4F7C6BA31A6E208E006E3FAB /* MessageTextView.h */,
 				4F7C6BA41A6E208E006E3FAB /* MessageTextView.m */,
+				F5FA30511C6402250041861B /* MessageTextInputbar.h */,
+				F5FA30521C6402250041861B /* MessageTextInputbar.m */,
+				F51F86FB1C699B1400E3E614 /* InputViewController.h */,
+				F51F86FC1C699B1400E3E614 /* InputViewController.m */,
 				4FF04E571B3F7A04004C3BED /* TypingIndicatorView.h */,
 				4FF04E581B3F7A04004C3BED /* TypingIndicatorView.m */,
 				4F8ADA751A68C37400023752 /* Message.h */,
 				4F8ADA761A68C37400023752 /* Message.m */,
 				4F86BF8E19F01234007A3D4A /* Images.xcassets */,
+				F51F86FE1C69B7EE00E3E614 /* slack-icons.ttf */,
 				4F86BFE719F05519007A3D4A /* Bridge-Header.h */,
 			);
 			name = Shared;
@@ -461,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DE01401B9679C4005E9082 /* LaunchScreen.xib in Resources */,
+				F51F86FF1C69B7EE00E3E614 /* slack-icons.ttf in Resources */,
 				4F86BF9319F01234007A3D4A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,6 +492,7 @@
 			files = (
 				4F86BF7319F011D0007A3D4A /* Main.storyboard in Resources */,
 				4F86BF9419F01234007A3D4A /* Images.xcassets in Resources */,
+				F51F87001C69B7EE00E3E614 /* slack-icons.ttf in Resources */,
 				4F86BF7819F011D0007A3D4A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,6 +503,7 @@
 			files = (
 				4F86BFE519F050DD007A3D4A /* Images.xcassets in Resources */,
 				4F86BFCD19F050AF007A3D4A /* Main.storyboard in Resources */,
+				F51F87011C69B7EE00E3E614 /* slack-icons.ttf in Resources */,
 				4F86BFD219F050AF007A3D4A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +512,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F51F87021C69B7EE00E3E614 /* slack-icons.ttf in Resources */,
 				71BE102F1A72F42F0083EE32 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,6 +654,8 @@
 				4FF04E591B3F7A04004C3BED /* TypingIndicatorView.m in Sources */,
 				4F3EDB59199ED00F004C15D6 /* main.m in Sources */,
 				4F32561E1AA77431008C1DD9 /* MessageTextView.m in Sources */,
+				F51F86FD1C699B1400E3E614 /* InputViewController.m in Sources */,
+				F5FA30531C6402250041861B /* MessageTextInputbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
