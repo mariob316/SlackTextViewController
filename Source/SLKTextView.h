@@ -64,7 +64,7 @@ typedef NS_OPTIONS(NSUInteger, SLKPastableMediaType) {
 @property (nonatomic) SLKPastableMediaType pastableMediaTypes;
 
 /** YES if the text view is and can still expand it self, depending if the maximum number of lines are reached. */
-@property (nonatomic, readonly) BOOL isExpanding;
+@property (nonatomic, readonly) BOOL isExpanded;
 
 /** YES if quickly refreshed the textview without the intension to dismiss the keyboard. @view -disableQuicktypeBar: for more details. */
 @property (nonatomic, readwrite) BOOL didNotResignFirstResponder;

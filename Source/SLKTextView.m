@@ -261,6 +261,7 @@ static NSString *const SLKTextViewGenericFormattingSelectorPrefix = @"slk_format
     if ([self slk_pasteboardContentType].length > 0) {
         return YES;
     }
+    
     return NO;
 }
 
@@ -360,10 +361,11 @@ SLKPastableMediaType SLKPastableMediaTypeFromNSString(NSString *string)
     if ([string isEqualToString:NSStringFromSLKPastableMediaType(SLKPastableMediaTypeImages)]) {
         return SLKPastableMediaTypeImages;
     }
+    
     return SLKPastableMediaTypeNone;
 }
 
-- (BOOL)isExpanding
+- (BOOL)isExpanded
 {
     if (self.numberOfLines >= self.maxNumberOfLines) {
         return YES;

@@ -60,7 +60,7 @@
     [self slk_insertTextAtCaretRange:@"\n"];
     
     // if the text view cannot expand anymore, scrolling to bottom are not animated to fix a UITextView issue scrolling twice.
-    BOOL animated = !self.isExpanding;
+    BOOL animated = !self.isExpanded;
     
     //Detected break. Should scroll to bottom if needed.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0125 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
