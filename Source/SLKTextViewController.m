@@ -884,17 +884,26 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     
     _textInputbar.hidden = hidden;
     
+    __block CGFloat bottomMargin = _textInputbar.bottomMargin;
+    __block CGFloat appropriateHeight = _textInputbar.appropriateHeight - (hidden ?  bottomMargin : 0.0);
+    __block CGFloat alpha = hidden ?  0.0 : 1.0;
+
     __weak typeof(self) weakSelf = self;
-    
+
     void (^animations)() = ^void(){
+        weakSelf.textInputbar.textView.alpha = alpha;
+        weakSelf.textInputbar.editorContentView.alpha = alpha;
+        weakSelf.textInputbar.leftButton.alpha = alpha;
+        weakSelf.textInputbar.rightButton.alpha = alpha;
+        weakSelf.textInputbar.charCountLabel.alpha = alpha;
         
-        weakSelf.textInputbarHC.constant = hidden ? 0 : weakSelf.textInputbar.appropriateHeight;
-        
+        weakSelf.textInputbarHC.constant = appropriateHeight ;
+            
         [weakSelf.view layoutIfNeeded];
     };
     
     void (^completion)(BOOL finished) = ^void(BOOL finished){
-        if (hidden) {
+        if (hidden && bottomMargin == 0) {
             [self dismissKeyboard:YES];
         }
     };
@@ -904,7 +913,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     }
     else {
         animations();
-        completion(NO);
+        completion(YES);
     }
 }
 
@@ -2185,13 +2194,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (void)slk_updateViewConstraints
 {
-    self.textInputbarHC.constant = self.textInputbar.minimumInputbarHeight;
+    self.textInputbarHC.constant = [self.textInputbar appropriateHeight];
     self.scrollViewHC.constant = [self slk_appropriateScrollViewHeight];
     self.keyboardHC.constant = [self slk_appropriateKeyboardHeightFromRect:CGRectNull];
-    
-    if (_textInputbar.isEditing) {
-        self.textInputbarHC.constant += self.textInputbar.editorContentViewHeight;
-    }
     
     [super updateViewConstraints];
 }

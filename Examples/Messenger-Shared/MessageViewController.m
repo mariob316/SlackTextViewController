@@ -101,7 +101,10 @@
     self.shouldScrollToBottomAfterKeyboardShows = NO;
     self.inverted = YES;
     
-#if !DEBUG_CUSTOM_TEXT_INPUTBAR
+#if DEBUG_CUSTOM_TEXT_INPUTBAR
+    MessageTextInputbar *textInputBar = (MessageTextInputbar *)self.textInputbar;
+    [textInputBar.segmentedControl addTarget:self action:@selector(didChangeSegment:) forControlEvents:UIControlEventValueChanged];
+#else
     [self.leftButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor grayColor]];
 #endif
@@ -133,6 +136,20 @@
     [self.textView registerMarkdownFormattingSymbol:@"`" withTitle:@"Code"];
     [self.textView registerMarkdownFormattingSymbol:@"```" withTitle:@"Preformatted"];
     [self.textView registerMarkdownFormattingSymbol:@">" withTitle:@"Quote"];
+}
+
+- (void)didChangeSegment:(id)sender
+{
+    NSLog(@"%s",__FUNCTION__);
+    
+    MessageTextView *textView = (MessageTextView *)self.textView;
+    
+    if (textView.inputType == InputTypeCalls) {
+        [self setTextInputbarHidden:YES animated:YES];
+    }
+    else if (self.isTextInputbarHidden) {
+        [self setTextInputbarHidden:NO animated:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -391,14 +408,25 @@
     // Notifies the view controller that the keyboard changed status.
 
 #if DEBUG_CUSTOM_TEXT_INPUTBAR
+    MessageTextView *textView = (MessageTextView *)self.textView;
     MessageTextInputbar *textInputBar = (MessageTextInputbar *)self.textInputbar;
     DZNSegmentedControl *segmentedControl = textInputBar.segmentedControl;
     
+    void (^inputTypeUpdate)(InputType,BOOL) = ^void(InputType inputType, BOOL updateInput) {
+        if (updateInput) textView.inputType = inputType;
+        segmentedControl.selectedSegmentIndex = inputType;
+        segmentedControl.tintColor = [MessageTextView tintColorForInputType:inputType];
+    };
+    
+    // Updates the segmented control's first item whenever the keyboard is up
     if (status == SLKKeyboardStatusWillHide) {
-        segmentedControl.selectedSegmentIndex = InputTypeDisabled;
+        inputTypeUpdate(InputTypeDisabled, NO);
+    }
+    else if (status == SLKKeyboardStatusDidHide) {
+        inputTypeUpdate(InputTypeDisabled, YES);
     }
     else if (status == SLKKeyboardStatusWillShow && segmentedControl.selectedSegmentIndex == InputTypeDisabled) {
-        segmentedControl.selectedSegmentIndex = InputTypeKeyboard;
+        inputTypeUpdate(InputTypeKeyboard, YES);
     }
 #endif
 }
