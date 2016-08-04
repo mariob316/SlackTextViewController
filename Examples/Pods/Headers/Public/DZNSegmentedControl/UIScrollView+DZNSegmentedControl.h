@@ -1,1 +1,1 @@
-../../../../../../../../DZN/OSS/DZNSegmentedControl/Source/UIScrollView+DZNSegmentedControl.h
+../../../DZNSegmentedControl/Source/UIScrollView+DZNSegmentedControl.h

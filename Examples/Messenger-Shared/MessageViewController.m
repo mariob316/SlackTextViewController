@@ -406,7 +406,6 @@
 - (void)didChangeKeyboardStatus:(SLKKeyboardStatus)status
 {
     // Notifies the view controller that the keyboard changed status.
-
 #if DEBUG_CUSTOM_TEXT_INPUTBAR
     MessageTextView *textView = (MessageTextView *)self.textView;
     MessageTextInputbar *textInputBar = (MessageTextInputbar *)self.textInputbar;
@@ -429,6 +428,13 @@
         inputTypeUpdate(InputTypeKeyboard, YES);
     }
 #endif
+
+    switch (status) {
+        case SLKKeyboardStatusWillShow:     return NSLog(@"Will Show");
+        case SLKKeyboardStatusDidShow:      return NSLog(@"Did Show");
+        case SLKKeyboardStatusWillHide:     return NSLog(@"Will Hide");
+        case SLKKeyboardStatusDidHide:      return NSLog(@"Did Hide");
+    }
 }
 
 - (void)textWillUpdate
@@ -450,6 +456,12 @@
     // Notifies the view controller when the left button's action has been triggered, manually.
     
     [super didPressLeftButton:sender];
+    
+    UIViewController *vc = [UIViewController new];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.title = @"Details";
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didPressRightButton:(id)sender
@@ -548,7 +560,7 @@
 
 - (BOOL)shouldProcessTextForAutoCompletion:(NSString *)text
 {
-    return YES;
+    return [super shouldProcessTextForAutoCompletion:text];
 }
 
 - (void)didChangeAutoCompletionPrefix:(NSString *)prefix andWord:(NSString *)word
@@ -703,7 +715,7 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressCell:)];
         [cell addGestureRecognizer:longPress];
     }
-
+    
     Message *message = self.messages[indexPath.row];
     
     cell.titleLabel.text = message.username;

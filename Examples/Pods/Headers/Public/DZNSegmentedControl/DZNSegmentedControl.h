@@ -1,1 +1,1 @@
-../../../../../../../../DZN/OSS/DZNSegmentedControl/Source/DZNSegmentedControl.h
+../../../DZNSegmentedControl/Source/DZNSegmentedControl.h

@@ -3,7 +3,25 @@ source 'https://github.com/CocoaPods/Specs.git'
 workspace 'Messenger.xcworkspace'
 platform :ios, '7.0'
 
-pod 'SlackTextViewController', :path => '../SlackTextViewController.podspec'
-pod 'DZNSegmentedControl', :path => '/Users/iromero/Desktop/DZN/OSS/DZNSegmentedControl/DZNSegmentedControl.podspec'
+def common_pods
+    pod 'SlackTextViewController', :path => '../SlackTextViewController.podspec'
+    pod 'DZNSegmentedControl'
+    pod 'LoremIpsum', '~> 1.0'
+end
 
-pod 'LoremIpsum', '~> 1.0'
+target 'Messenger-Programatic' do
+    common_pods
+end
+
+target 'Messenger-Storyboard' do
+	common_pods
+end
+
+target 'Messenger-Swift' do
+	common_pods
+end
+
+target 'Messenger-iPad-Sheet' do
+    common_pods
+end
+
