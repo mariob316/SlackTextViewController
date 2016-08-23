@@ -1237,6 +1237,23 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     }
 }
 
+- (void)adjustTableContentInset:(UIEdgeInsets)inset {
+    UIEdgeInsets contentInset = self.scrollViewProxy.contentInset;
+    
+    // When inverted, we need to substract the top bars height (generally status bar + navigation bar's) to align the top of the
+    // scrollView correctly to its top edge.
+    if (self.inverted) {
+        contentInset.bottom = [self slk_topBarsHeight] + inset.bottom;
+        contentInset.top = contentInset.bottom > 0.0 ? 0.0 : contentInset.top;
+    }
+    else {
+        contentInset.bottom = 0.0;
+    }
+    
+    self.scrollViewProxy.contentInset = contentInset;
+    self.scrollViewProxy.scrollIndicatorInsets = contentInset;
+}
+
 - (void)slk_adjustContentConfigurationIfNeeded
 {
     UIEdgeInsets contentInset = self.scrollViewProxy.contentInset;
