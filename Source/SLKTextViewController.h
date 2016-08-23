@@ -233,6 +233,8 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
  */
 - (void)didChangeKeyboardStatus:(SLKKeyboardStatus)status;
 
+- (void)adjustTableContentInset:(UIEdgeInsets)inset;
+
 
 #pragma mark - Interaction Notifications
 ///------------------------------------------------

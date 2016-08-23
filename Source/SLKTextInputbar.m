@@ -356,6 +356,24 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     return self.contentInset.right;
 }
 
+- (CGFloat)slk_appropriateLeftButtonWidth
+{
+    if (self.leftButtonWC.constant > 0.0f) {
+        return 0.0f;
+    }
+    
+    return [self.leftButton intrinsicContentSize].width;
+}
+
+- (CGFloat)slk_appropriateLeftButtonMargin
+{
+    if (self.hideLeftButton && self.leftButtonWC.constant > 0.0f) {
+        return 0.0f;
+    }
+    
+    return self.contentInset.left;
+}
+
 - (NSUInteger)slk_defaultNumberOfLines
 {
     if (SLK_IS_IPAD) {
@@ -390,6 +408,26 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     self.rightMarginWC.constant = [self slk_appropriateRightButtonMargin];
 
     [self layoutIfNeeded];
+}
+
+- (void)setLeftButtonHidden:(BOOL)hideLeftButton
+{
+
+    _hideLeftButton = hideLeftButton;
+    
+    if (hideLeftButton && self.leftButtonWC.constant == 0.0f) {
+        return;
+    }
+    
+    self.leftButtonWC.constant = [self slk_appropriateLeftButtonWidth];
+    self.leftMarginWC.constant = [self slk_appropriateLeftButtonMargin];
+    
+    [self.leftButton layoutIfNeeded];
+    
+    [self slk_animateLayoutIfNeededWithBounce:YES
+                                      options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction
+                                   animations:NULL];
+    
 }
 
 - (void)setContentInset:(UIEdgeInsets)insets
@@ -608,7 +646,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
                               };
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[leftButton(0)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
+    
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[leftButton(0)]-(0@750)-|" options:0 metrics:metrics views:views]];
+    
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[rightButton]-(<=0)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left@250)-[charCountLabel(<=50@1000)]-(right@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[contentView(0)]-(<=top)-[textView(0@999)]-(bottom)-|" options:0 metrics:metrics views:views]];
@@ -649,12 +689,12 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         CGSize leftButtonSize = [self.leftButton imageForState:self.leftButton.state].size;
         
         if (leftButtonSize.width > 0) {
-            self.leftButtonHC.constant = roundf(leftButtonSize.height);
+            self.leftButtonHC.constant = self.hideLeftButton ? zero : roundf(leftButtonSize.height);
             self.bottomMarginWC.constant = roundf((self.intrinsicContentSize.height - leftButtonSize.height) / 2.0);
         }
         
-        self.leftButtonWC.constant = roundf(leftButtonSize.width);
-        self.leftMarginWC.constant = (leftButtonSize.width > 0) ? self.contentInset.left : zero;
+        self.leftButtonWC.constant = self.hideLeftButton ? zero : roundf(leftButtonSize.width);
+        self.leftMarginWC.constant = self.hideLeftButton ? zero : (leftButtonSize.width > 0) ? self.contentInset.left : zero;
         
         self.rightButtonWC.constant = [self slk_appropriateRightButtonWidth];
         self.rightMarginWC.constant = [self slk_appropriateRightButtonMargin];
