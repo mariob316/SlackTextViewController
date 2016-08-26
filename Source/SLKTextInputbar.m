@@ -415,9 +415,10 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 
     _hideLeftButton = hideLeftButton;
     
-    if (hideLeftButton && self.leftButtonWC.constant == 0.0f) {
+    if ((hideLeftButton && self.leftButtonWC.constant == 0.0f) || (!hideLeftButton && self.leftButtonWC.constant > 0.0f)) {
         return;
     }
+    
     
     self.leftButtonWC.constant = [self slk_appropriateLeftButtonWidth];
     self.leftMarginWC.constant = [self slk_appropriateLeftButtonMargin];
