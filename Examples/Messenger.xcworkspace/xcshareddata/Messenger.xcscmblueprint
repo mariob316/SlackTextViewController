@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8E9694F087F70D8D068B66654B1CC8608B5F6B2D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8E9694F087F70D8D068B66654B1CC8608B5F6B2D" : 9223372036854775807,
+    "A5CDA6A6B8EA23C1029361AB6F2EEA43D942472A" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6D7BF5AF-3B27-4F05-8A21-AD5989F42E9C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8E9694F087F70D8D068B66654B1CC8608B5F6B2D" : "SlackTextViewController\/",
+    "A5CDA6A6B8EA23C1029361AB6F2EEA43D942472A" : "..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Messenger",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Examples\/Messenger.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mariob316\/SlackTextViewController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8E9694F087F70D8D068B66654B1CC8608B5F6B2D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/192.168.110.3\/home\/git\/KIP\/Kip_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A5CDA6A6B8EA23C1029361AB6F2EEA43D942472A"
+    }
+  ]
+}
