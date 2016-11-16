@@ -417,7 +417,7 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 @property (nonatomic, readonly) UITableView *autoCompletionView;
 
 /** YES if the autocompletion mode is active. */
-@property (nonatomic, readonly, getter = isAutoCompleting) BOOL autoCompleting;
+@property (nonatomic, assign, getter = isAutoCompleting) BOOL autoCompleting;
 
 /** The recently found prefix symbol used as prefix for autocompletion mode. */
 @property (nonatomic, readonly, copy) NSString *_Nullable foundPrefix;

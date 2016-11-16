@@ -14,6 +14,9 @@
 #import "UIView+SLKAdditions.h"
 
 #import "SLKUIConstants.h"
+#import "UIColor+KPColors.h"
+#import "UIImage+KPExtra.h"
+
 
 NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMoveNotification";
 
@@ -72,11 +75,16 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 
 - (void)slk_commonInit
 {
+    
+    
+    
+    
     self.charCountLabelNormalColor = [UIColor lightGrayColor];
     self.charCountLabelWarningColor = [UIColor redColor];
     
     self.autoHideRightButton = YES;
     self.editorContentViewHeight = 38.0;
+    [self insertIndicatior];
     self.contentInset = UIEdgeInsetsMake(5.0, 8.0, 5.0, 8.0);
     
     [self addSubview:self.editorContentView];
@@ -97,7 +105,16 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     [self slk_registerTo:self.leftButton.imageView forSelector:@selector(image)];
     [self slk_registerTo:self.rightButton.titleLabel forSelector:@selector(font)];
 }
-
+-(void)insertIndicatior{
+    
+    UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), 1)];
+    [indicatorView setBackgroundColor:[UIColor goorooThemeGradientColor:indicatorView]];
+    
+    indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self addSubview:indicatorView];
+    [self bringSubviewToFront:indicatorView];
+    
+}
 
 #pragma mark - UIView Overrides
 
@@ -141,9 +158,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         _textView.enablesReturnKeyAutomatically = YES;
         _textView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, -1.0, 0.0, 1.0);
         _textView.textContainerInset = UIEdgeInsetsMake(8.0, 4.0, 8.0, 0.0);
-        _textView.layer.cornerRadius = 5.0;
-        _textView.layer.borderWidth = 0.5;
-        _textView.layer.borderColor =  [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:205.0/255.0 alpha:1.0].CGColor;
+        //_textView.layer.cornerRadius = 5.0;
+        //_textView.layer.borderWidth = 0.5;
+        //_textView.layer.borderColor =  [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:205.0/255.0 alpha:1.0].CGColor;
     }
     return _textView;
 }
@@ -176,10 +193,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         _rightButton.translatesAutoresizingMaskIntoConstraints = NO;
         _rightButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         _rightButton.enabled = NO;
+        //NSString *title = NSLocalizedString(@"Send", nil);
         
-        NSString *title = NSLocalizedString(@"Send", nil);
-        
-        [_rightButton setTitle:title forState:UIControlStateNormal];
+        //[_rightButton setTitle:title forState:UIControlStateNormal];
     }
     return _rightButton;
 }

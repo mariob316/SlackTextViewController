@@ -172,6 +172,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 {
     [super viewDidLoad];
     
+    
+    UIView *abcView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 375, 2)];
+    [abcView setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:abcView];
+    [self.view bringSubviewToFront:abcView];
+ 
     [self.view addSubview:self.scrollViewProxy];
     [self.view addSubview:self.autoCompletionView];
     [self.view addSubview:self.typingIndicatorProxyView];
@@ -308,6 +314,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     if (!_textInputbar) {
         _textInputbar = [[SLKTextInputbar alloc] initWithTextViewClass:self.textViewClass];
         _textInputbar.translatesAutoresizingMaskIntoConstraints = NO;
+        
+//        UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 375, 10)];
+//        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:tempView];
+//        [_textInputbar additem]
         
         [_textInputbar.leftButton addTarget:self action:@selector(didPressLeftButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.rightButton addTarget:self action:@selector(didPressRightButton:) forControlEvents:UIControlEventTouchUpInside];
