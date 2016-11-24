@@ -229,7 +229,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 {
     [super viewWillLayoutSubviews];
     
-    [self slk_adjustContentConfigurationIfNeeded];
+   // [self slk_adjustContentConfigurationIfNeeded];
 }
 
 - (void)viewDidLayoutSubviews
