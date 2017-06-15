@@ -16,9 +16,9 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    if (!SLK_IS_IOS9_AND_HIGHER) {
+    //if (!SLK_IS_IOS9_AND_HIGHER) {
         _keyboardViewProxy = newSuperview;
-    }
+    //}
 }
 
 @end

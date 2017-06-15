@@ -76,9 +76,6 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 - (void)slk_commonInit
 {
     
-    
-    
-    
     self.charCountLabelNormalColor = [UIColor lightGrayColor];
     self.charCountLabelWarningColor = [UIColor redColor];
     
@@ -104,10 +101,13 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     [self slk_registerTo:self.layer forSelector:@selector(position)];
     [self slk_registerTo:self.leftButton.imageView forSelector:@selector(image)];
     [self slk_registerTo:self.rightButton.titleLabel forSelector:@selector(font)];
+    
+    [self setBarStyle:UIBarStyleBlackTranslucent];
 }
 -(void)insertIndicatior{
     
-    UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), 1)];
+    UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), 3)];
+
     [indicatorView setBackgroundColor:[UIColor goorooThemeGradientColor:indicatorView]];
     
     indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;

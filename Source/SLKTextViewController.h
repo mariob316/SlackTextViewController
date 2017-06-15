@@ -77,6 +77,9 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 /** A vertical pan gesture used for bringing the keyboard from the bottom. SLKTextViewController is its delegate. */
 @property (nonatomic, readonly) UIPanGestureRecognizer *verticalPanGesture;
 
+@property (nonatomic, readonly) UISwipeGestureRecognizer *verticalSwipeGesture;
+
+
 /** YES if animations should have bouncy effects. Default is YES. */
 @property (nonatomic, assign) BOOL bounces;
 
@@ -606,6 +609,9 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 
 /** UIGestureRecognizerDelegate */
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer NS_REQUIRES_SUPER;
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer NS_REQUIRES_SUPER;
+
 
 /** UIAlertViewDelegate */
 #ifndef __IPHONE_8_0
