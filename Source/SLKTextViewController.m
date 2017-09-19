@@ -247,6 +247,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [super viewDidLayoutSubviews];
 }
 
+- (void)viewSafeAreaInsetsDidChange
+{
+    [super viewSafeAreaInsetsDidChange];
+    
+    [self slk_updateViewConstraints];
+}
 
 #pragma mark - Getters
 
@@ -440,6 +446,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         if (tabBar && !tabBar.hidden && !self.hidesBottomBarWhenPushed) {
             return CGRectGetHeight(tabBar.frame);
         }
+    }
+    // A bottom margin is required for iPhone X
+    if (@available(iOS 11.0, *)) {
+        return self.view.safeAreaInsets.bottom;
     }
     
     return 0.0;
@@ -901,15 +911,15 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         return;
     }
     
-    _textInputbar.alpha = hidden ? 1 : 0;
+    _textInputbar.alpha = hidden ? 0 : 1;
     _textInputbar.hidden = hidden;
     
     __weak typeof(self) weakSelf = self;
     
     void (^animations)() = ^void(){
         
-        weakSelf.textInputbarHC.constant = hidden ? 0 : weakSelf.textInputbar.appropriateHeight;
-        
+        weakSelf.textInputbarHC.constant = hidden ? 0.0 : weakSelf.textInputbar.appropriateHeight;
+         _textInputbar.alpha = hidden ? 0 : 1;
         [weakSelf.view layoutIfNeeded];
     };
     
@@ -920,14 +930,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     };
     
     if (animated) {
-        [UIView animateWithDuration:.40 animations:^{
-            _textInputbar.alpha = hidden ? 0 : 1;
-        } completion:completion];
-        
         [UIView animateWithDuration:0.25 animations:animations completion:nil];
     }
     else {
-        _textInputbar.alpha = hidden ? 1 : 0;
         animations();
         completion(NO);
     }
@@ -2332,7 +2337,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     NSDictionary *views = @{@"scrollView": self.scrollViewProxy,
                             @"autoCompletionView": self.autoCompletionView,
                             @"typingIndicatorView": self.typingIndicatorProxyView,
-                            @"textInputbar": self.textInputbar,
+                            @"textInputbar": self.textInputbar
                             };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView(0@750)][typingIndicatorView(0)]-0@999-[textInputbar(0)]|" options:0 metrics:nil views:views]];
