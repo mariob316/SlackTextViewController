@@ -247,12 +247,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [super viewDidLayoutSubviews];
 }
 
-//- (void)viewSafeAreaInsetsDidChange
-//{
-//    [super viewSafeAreaInsetsDidChange];
-//    
-//    [self slk_updateViewConstraints];
-//}
+- (void)viewSafeAreaInsetsDidChange
+{
+    [super viewSafeAreaInsetsDidChange];
+    
+    [self slk_updateViewConstraints];
+}
 
 #pragma mark - Getters
 
@@ -275,6 +275,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.clipsToBounds = NO;
+        [self slk_updateInsetAdjustmentBehavior];
     }
     return _tableView;
 }
@@ -447,10 +448,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
             return CGRectGetHeight(tabBar.frame);
         }
     }
-//    // A bottom margin is required for iPhone X
-//    if (@available(iOS 11.0, *)) {
-//        return self.view.safeAreaInsets.bottom;
-//    }
+    // A bottom margin is required for iPhone X
+    if (@available(iOS 11.0, *)) {
+        return self.view.safeAreaInsets.bottom;
+    }
     
     return 0.0;
 }
@@ -595,7 +596,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     }
     
     _inverted = inverted;
-    
+    [self slk_updateInsetAdjustmentBehavior];
     self.scrollViewProxy.transform = inverted ? CGAffineTransformMake(1, 0, 0, -1, 0, 0) : CGAffineTransformIdentity;
 }
 
@@ -603,6 +604,18 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 {
     _bounces = bounces;
     _textInputbar.bounces = bounces;
+}
+
+- (void)slk_updateInsetAdjustmentBehavior
+{
+    // Deactivate automatic scrollView adjustment for inverted table view
+    if (@available(iOS 11.0, *)) {
+        if (self.isInverted) {
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+        }
+    }
 }
 
 - (BOOL)slk_updateKeyboardStatus:(SLKKeyboardStatus)status
@@ -913,6 +926,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     
     _textInputbar.alpha = hidden ? 0 : 1;
     _textInputbar.hidden = hidden;
+    
+    if (@available(iOS 11.0, *)) {
+        [self viewSafeAreaInsetsDidChange];
+    }
     
     __weak typeof(self) weakSelf = self;
     
